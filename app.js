@@ -8,7 +8,8 @@ const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
-const { listingSchema } = require("./schema.js");
+const { listingSchema, reviewSchema } = require("./schema.js");
+const Review = require("./models/review.js");
 
 main()
   .then(() => {
@@ -43,6 +44,16 @@ const validateListing = (req, res, next) => {
   }
 };
 
+const validateReview = (req, res, next) => {
+  let { error } = reviewSchema.validate(req.body);
+  if (error) {
+    let errMsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errMsg);
+  } else {
+    next();
+  }
+};
+
 //Index Route
 app.get(
   "/listings",
@@ -62,7 +73,7 @@ app.get(
   "/listings/:id",
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews");
     res.render("listings/show.ejs", { listing });
   }),
 );
@@ -110,6 +121,46 @@ app.delete(
   }),
 );
 
+//reviews
+//post route
+app.post("/listings/:id/reviews", async (req, res) => {
+  let listing = await Listing.findById(req.params.id);
+  let newReview = new Review(req.body.review);
+
+  listing.reviews.push(newReview);
+
+  await newReview.save();
+  await listing.save();
+
+  console.log("new review");
+  res.redirect(`/listings/${listing._id}`);
+});
+
+// delete review route
+
+// Delete Review Route
+app.delete(
+  "/listings/:id/reviews/:reviewID",
+  wrapAsync(async (req, res) => {
+    const { id, reviewID } = req.params;
+
+    // Listing se review ko remove karo
+    await Listing.findByIdAndUpdate(id, {
+      $pull: {
+        reviews: reviewID,
+      },
+    });
+
+    // Review document ko delete karo
+    await Review.findByIdAndDelete(reviewID);
+
+    // console.log("Review deleted:", reviewID);
+
+    // Same listing ke show page par wapas
+    res.redirect(`/listings/${id}`);
+  }),
+);
+
 // app.get("/testListing", async (req, res) => {
 //   let sampleListing = new Listing({
 //     title: "My New Villa",
@@ -130,7 +181,7 @@ app.all("*", (req, res, next) => {
 
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "Something went Wrong!" } = err;
-  res.staus(statusCode).render("error.ejs", { message });
+  res.status(statusCode).render("error.ejs", { message });
   // res.status(statusCode).send(message);
 });
 
