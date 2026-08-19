@@ -26,6 +26,7 @@ router.post("/", async (req, res) => {
 
   await newReview.save();
   await listing.save();
+  req.flash("success", "New Review Created!");
 
   console.log("new review");
   res.redirect(`/listings/${listing._id}`);
@@ -48,7 +49,7 @@ router.delete(
 
     // Review document ko delete karo
     await Review.findByIdAndDelete(reviewId);
-
+    req.flash("success", "Review deleted successfully!");
     // console.log("Review deleted:", reviewID);
 
     // Same listing ke show page par wapas
