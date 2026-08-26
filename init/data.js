@@ -2,7 +2,7 @@ const sampleListings = [
   {
     title: "Cozy Beachfront Cottage",
     description:
-      "Escape to this charming beachfront cottage for a relaxing getaway. Enjoy stunning ocean views and easy access to the beach.",
+      "Escape to this trending beachfront cottage for a relaxing getaway. Enjoy stunning ocean views, cozy rooms, and easy access to the beach.",
     image: {
       filename: "listingimage",
       url: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
@@ -14,7 +14,7 @@ const sampleListings = [
   {
     title: "Modern Loft in Downtown",
     description:
-      "Stay in the heart of the city in this stylish loft apartment. Perfect for urban explorers!",
+      "Stay in the heart of the city in this trending and stylish loft apartment. Perfect for urban explorers! Features spacious rooms.",
     image: {
       filename: "listingimage",
       url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
@@ -26,7 +26,7 @@ const sampleListings = [
   {
     title: "Mountain Retreat",
     description:
-      "Unplug and unwind in this peaceful mountain cabin. Surrounded by nature, it's a perfect place to recharge.",
+      "Unplug and unwind in this peaceful mountain cabin. Surrounded by snow and nature, it's a perfect place to recharge.",
     image: {
       filename: "listingimage",
       url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aG90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
@@ -38,7 +38,7 @@ const sampleListings = [
   {
     title: "Historic Villa in Tuscany",
     description:
-      "Experience the charm of Tuscany in this beautifully restored villa. Explore the rolling hills and vineyards.",
+      "Experience the charm of Tuscany in this trending, beautifully restored villa. Explore the rolling hills, vineyards, and local farms.",
     image: {
       filename: "listingimage",
       url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
@@ -74,7 +74,7 @@ const sampleListings = [
   {
     title: "Rustic Cabin by the Lake",
     description:
-      "Spend your days fishing and kayaking on the serene lake. This cozy cabin is perfect for outdoor enthusiasts.",
+      "Spend your days fishing and kayaking on the serene lake. This cozy cabin is perfect for outdoor enthusiasts who love camping.",
     image: {
       filename: "listingimage",
       url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1vdW50YWlufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
@@ -86,7 +86,7 @@ const sampleListings = [
   {
     title: "Luxury Penthouse with City Views",
     description:
-      "Indulge in luxury living with panoramic city views from this stunning penthouse apartment.",
+      "Indulge in luxury living with panoramic city views from this trending, stunning penthouse apartment.",
     image: {
       filename: "listingimage",
       url: "https://images.unsplash.com/photo-1622396481328-9b1b78cdd9fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2t5JTIwdmFjYXRpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
@@ -98,7 +98,7 @@ const sampleListings = [
   {
     title: "Ski-In/Ski-Out Chalet",
     description:
-      "Hit the slopes right from your doorstep in this ski-in/ski-out chalet in the Swiss Alps.",
+      "Hit the slopes right from your doorstep in this ski-in/ski-out chalet in the snowy Swiss Alps.",
     image: {
       filename: "listingimage",
       url: "https://images.unsplash.com/photo-1502784444187-359ac186c5bb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHNreSUyMHZhY2F0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
@@ -146,7 +146,7 @@ const sampleListings = [
   {
     title: "Charming Cottage in the Cotswolds",
     description:
-      "Escape to the picturesque Cotswolds in this quaint and charming cottage with a thatched roof.",
+      "Escape to the picturesque Cotswolds in this quaint and charming cottage with a thatched roof, located near organic farms.",
     image: {
       filename: "listingimage",
       url: "https://images.unsplash.com/photo-1602088113235-229c19758e9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8YmVhY2glMjB2YWNhdGlvbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
@@ -170,7 +170,7 @@ const sampleListings = [
   {
     title: "Beachfront Bungalow in Bali",
     description:
-      "Relax on the sandy shores of Bali in this beautiful beachfront bungalow with a private pool.",
+      "Relax on the sandy shores of Bali in this trending, beautiful beachfront bungalow with a private pool.",
     image: {
       filename: "listingimage",
       url: "https://images.unsplash.com/photo-1602391833977-358a52198938?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGNhbXBpbmd8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
@@ -218,7 +218,7 @@ const sampleListings = [
   {
     title: "Historic Castle in Scotland",
     description:
-      "Live like royalty in this historic castle in the Scottish Highlands. Explore the rugged beauty of the area.",
+      "Live like royalty in this trending, historic castle in the Scottish Highlands. Explore the rugged beauty of the area.",
     image: {
       filename: "listingimage",
       url: "https://images.unsplash.com/photo-1585543805890-6051f7829f98?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGJlYWNoJTIwdmFjYXRpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
@@ -230,7 +230,7 @@ const sampleListings = [
   {
     title: "Desert Oasis in Dubai",
     description:
-      "Experience luxury in the middle of the desert in this opulent oasis in Dubai with a private pool.",
+      "Experience luxury in the middle of the desert in this trending, opulent oasis in Dubai with a private pool.",
     image: {
       filename: "listingimage",
       url: "https://images.unsplash.com/photo-1518684079-3c830dcef090?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZHViYWl8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
@@ -242,7 +242,7 @@ const sampleListings = [
   {
     title: "Rustic Log Cabin in Montana",
     description:
-      "Unplug and unwind in this cozy log cabin surrounded by the natural beauty of Montana.",
+      "Unplug and unwind in this cozy log cabin surrounded by the natural beauty of Montana. Perfect for camping under the stars.",
     image: {
       filename: "listingimage",
       url: "https://images.unsplash.com/photo-1586375300773-8384e3e4916f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGxvZGdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
@@ -266,7 +266,7 @@ const sampleListings = [
   {
     title: "Eco-Friendly Treehouse Retreat",
     description:
-      "Stay in an eco-friendly treehouse nestled in the forest. It's the perfect escape for nature lovers.",
+      "Stay in an eco-friendly treehouse nestled in the forest. It's the perfect camping escape for nature lovers.",
     image: {
       filename: "listingimage",
       url: "https://images.unsplash.com/photo-1488462237308-ecaa28b729d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8c2t5JTIwdmFjYXRpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
@@ -314,7 +314,7 @@ const sampleListings = [
   {
     title: "Luxury Villa in the Maldives",
     description:
-      "Indulge in luxury in this overwater villa in the Maldives with stunning views of the Indian Ocean.",
+      "Indulge in luxury in this trending overwater villa in the Maldives with stunning views of the Indian Ocean.",
     image: {
       filename: "listingimage",
       url: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGFrZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
@@ -326,7 +326,7 @@ const sampleListings = [
   {
     title: "Ski Chalet in Aspen",
     description:
-      "Hit the slopes in style with this luxurious ski chalet in the world-famous Aspen ski resort.",
+      "Hit the snowy slopes in style with this luxurious ski chalet in the world-famous Aspen ski resort.",
     image: {
       filename: "listingimage",
       url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGxha2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
