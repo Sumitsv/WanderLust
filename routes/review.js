@@ -57,7 +57,7 @@ router.post("/", isLoggedIn, validateReview, wrapAsync(createReview));
 router.delete(
   "/:reviewId",
   isLoggedIn,
-  isReviewAuthor,
+  wrapAsync(isReviewAuthor),
   wrapAsync(deleteReview),
 );
 

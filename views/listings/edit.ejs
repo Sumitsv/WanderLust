@@ -23,20 +23,18 @@
 
       <div class="mb-3">
         <label for="discription" class="form-label">Description</label>
-        <textarea name="listing[description]" class="form-control" required>
-<%= listing.description %> required </textarea
-        >
+        <textarea name="listing[description]" class="form-control" required><%= listing.description %></textarea>
         <div class="invalid-feedback">Please enter short discription</div>
       </div>
 
       <div class="mb-3">
         Original Listing Image <br />
-        <img src="<%= originalImage%>" />
+        <img src="<%= originalImage %>" alt="Current listing image" class="img-fluid" />
       </div>
 
       <div class="mb-3">
         <label for="image" class="form-label">Upload New Image</label>
-        <input name="listing[image]" type="file" class="form-control" />
+        <input name="listing[image]" type="file" class="form-control" accept="image/*" />
       </div>
       <div class="row">
         <div class="mb-3 col-md-4">
@@ -45,6 +43,7 @@
             name="listing[price]"
             value="<%= listing.price %>"
             type="number"
+            min="0"
             class="form-control"
             required
           />

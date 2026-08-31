@@ -30,7 +30,9 @@ module.exports.renderLogin = (req, res) => {
 
 module.exports.loginUser = (req, res) => {
   req.flash("success", "Welcome back!");
-  res.redirect(res.locals.isredirectUrl || "/listings");
+  const redirectUrl = res.locals.redirectUrl || "/listings";
+  delete req.session.redirectUrl;
+  res.redirect(redirectUrl);
 };
 
 module.exports.logout = (req, res, next) => {

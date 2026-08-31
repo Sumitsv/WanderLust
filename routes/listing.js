@@ -1,11 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const Listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
 const multer = require("multer");
-const { storage } = require("../cloudConfig.js");
-const upload = multer({ storage });
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 10 * 1024 * 1024 },
+  fileFilter: (req, file, callback) => {
+    callback(null, file.mimetype.startsWith("image/"));
+  },
+});
 
 const listingsController = require("../Controllers/listings.js");
 
@@ -29,18 +33,22 @@ router
   .get(wrapAsync(listingsController.showListing))
   .put(
     isLoggedIn,
-    isOwner,
+    wrapAsync(isOwner),
     upload.single("listing[image]"),
     validateListing,
     wrapAsync(listingsController.updateListing),
   )
-  .delete(isLoggedIn, isOwner, wrapAsync(listingsController.deleteListing));
+  .delete(
+    isLoggedIn,
+    wrapAsync(isOwner),
+    wrapAsync(listingsController.deleteListing),
+  );
 
 // ===================== SHOW EDIT FORM =====================
 router.get(
   "/:id/edit",
   isLoggedIn,
-  isOwner,
+  wrapAsync(isOwner),
   wrapAsync(listingsController.renderEditForm),
 );
 

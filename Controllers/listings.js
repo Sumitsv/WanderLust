@@ -1,4 +1,18 @@
 const Listing = require("../models/listing.js");
+const cloudinary = require("../cloudConfig.js");
+
+const DEFAULT_IMAGE_URL =
+  "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80";
+
+function uploadImage(file) {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "wanderlust_DEV" },
+      (error, result) => (error ? reject(error) : resolve(result)),
+    );
+    stream.end(file.buffer);
+  });
+}
 
 module.exports.index = async (req, res) => {
   const allListings = await Listing.find({});
@@ -81,7 +95,7 @@ module.exports.showListing = async (req, res) => {
     <\/script>`;
 
   res.render("listings/show", {
-    data,
+    listing: data,
     pageTitle: `${data.title} in ${data.location}, ${data.country} | PrestigeStay`,
     pageDescription: `Book ${data.title} in ${data.location}, ${data.country}. ₹${data.price ? data.price.toLocaleString("en-IN") : "0"} per night. ${data.description.substring(0, 120)}...`,
     canonicalPath: `/listings/${data._id}`,
@@ -101,36 +115,21 @@ module.exports.showListing = async (req, res) => {
 // });
 
 module.exports.createListing = async (req, res) => {
-  console.log(req.file);
-  const { title, description, price, country, location, image } = req.body;
-
   const uploadedImage = req.file
-    ? {
-        filename: req.file.filename,
-        url: req.file.path || req.file.secure_url || req.file.url || "",
-      }
-    : image
-      ? {
-          filename: image.filename || "default-image",
-          url: image.path || image.url || image,
-        }
-      : {
-          filename: "default-image",
-          url: "",
-        };
+    ? await uploadImage(req.file)
+    : { filename: "default-image", url: DEFAULT_IMAGE_URL };
 
-  const sample = new Listing({
-    title,
-    description,
-    image: uploadedImage,
-    price,
-    location,
-    country,
+  const listing = new Listing({
+    ...req.body.listing,
+    image: {
+      filename: uploadedImage.public_id || uploadedImage.filename,
+      url: uploadedImage.secure_url || uploadedImage.url,
+    },
     owner: req.user._id,
   });
 
-  await sample.save();
-  req.flash("success", "New post added successfully");
+  await listing.save();
+  req.flash("success", "New listing added successfully");
   res.redirect("/listings");
 };
 
@@ -146,12 +145,11 @@ module.exports.renderEditForm = async (req, res) => {
     "/uploads",
     "/uploads/w_350,h_100,c_limit",
   );
-  res.render("listings/edit", { post, originalImage });
+  res.render("listings/edit", { listing: post, originalImage });
 };
 
 module.exports.updateListing = async (req, res) => {
   const { id } = req.params;
-  const { title, description, price, country, location, image } = req.body;
   const existingListing = await Listing.findById(id);
 
   if (!existingListing) {
@@ -159,33 +157,22 @@ module.exports.updateListing = async (req, res) => {
     return res.redirect("/listings");
   }
 
-  const imageData = req.file
-    ? {
-        filename: req.file.filename,
-        url: req.file.path || req.file.secure_url || req.file.url,
-      }
-    : image
-      ? {
-          filename: existingListing.image?.filename || "default-image",
-          url: image,
-        }
-      : existingListing.image;
+  const uploadedImage = req.file ? await uploadImage(req.file) : null;
+  const image = uploadedImage
+    ? { filename: uploadedImage.public_id, url: uploadedImage.secure_url }
+    : existingListing.image;
 
   await Listing.findByIdAndUpdate(id, {
-    title,
-    description,
-    image: imageData,
-    price,
-    country,
-    location,
+    ...req.body.listing,
+    image,
   });
-  req.flash("success", "Post updated successfully");
+  req.flash("success", "Listing updated successfully");
   res.redirect("/listings");
 };
 
 module.exports.deleteListing = async (req, res) => {
   const { id } = req.params;
   await Listing.findByIdAndDelete(id);
-  req.flash("Delet", "Post Deleted sucessfully");
+  req.flash("success", "Listing deleted successfully");
   res.redirect("/listings");
 };
