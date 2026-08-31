@@ -68,9 +68,9 @@ const sessionOption = {
   },
 };
 
-// app.get("/", (req, res) => {
-//   res.send("Hi, I am root");
-// });
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
 
 app.use(session(sessionOption));
 app.use(flash());
@@ -88,7 +88,9 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error");
   res.locals.currUser = req.user;
   // FIX: expose the active site URL so canonical links work without hard-coded deployment domains.
-  res.locals.siteUrl = (process.env.SITE_URL || `${req.protocol}://${req.get("host")}`).replace(/\/$/, "");
+  res.locals.siteUrl = (
+    process.env.SITE_URL || `${req.protocol}://${req.get("host")}`
+  ).replace(/\/$/, "");
   next();
 });
 
@@ -110,13 +112,17 @@ async function startServer() {
   try {
     await mongoose.connect(MONGO_URL);
     console.log("connected to DB");
-    app.listen(process.env.PORT || 8080, () => {
-      console.log(`server is listening on port ${process.env.PORT || 8080}`);
-    });
+
+    if (require.main === module) {
+      app.listen(process.env.PORT || 8080, () => {
+        console.log(`server is listening on port ${process.env.PORT || 8080}`);
+      });
+    }
   } catch (err) {
     console.error("Database connection failed:", err.message);
-    process.exitCode = 1;
   }
 }
 
 startServer();
+
+module.exports = app;
