@@ -68,10 +68,6 @@ const sessionOption = {
   },
 };
 
-app.get("/", (req, res) => {
-  res.redirect("/listings");
-});
-
 app.use(session(sessionOption));
 app.use(flash());
 
@@ -92,6 +88,10 @@ app.use((req, res, next) => {
     process.env.SITE_URL || `${req.protocol}://${req.get("host")}`
   ).replace(/\/$/, "");
   next();
+});
+
+app.get("/", (req, res) => {
+  res.redirect("/listings");
 });
 
 app.use("/listings", listingRouter);

@@ -1,6 +1,22 @@
 <nav class="navbar navbar-expand-md sticky-top border-bottom">
   <div class="container page-shell">
     <a class="navbar-brand d-flex align-items-center" href="/listings" aria-label="Wanderlust home"><i class="fa-regular fa-compass brand-mark"></i><span class="brand-name">Wanderlust</span></a>
+
+    <form class="d-flex search-form" action="/listings" method="GET" role="search">
+      <div class="input-group search-box">
+        <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+        <input
+          class="form-control"
+          type="search"
+          name="q"
+          value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>"
+          placeholder="Search destination, city or country"
+          aria-label="Search listings"
+        >
+        <button class="btn btn-brand search-submit" type="submit">Search</button>
+      </div>
+    </form>
+
     <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav ms-md-4"><a class="nav-link" href="/listings">Explore stays</a></div>

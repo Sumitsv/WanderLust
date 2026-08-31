@@ -35,7 +35,19 @@ function getSiteUrl(req) {
 }
 
 module.exports.index = async (req, res) => {
-  const allListings = await Listing.find({});
+  const searchQuery = typeof req.query.q === "string" ? req.query.q.trim() : "";
+  const dbQuery = searchQuery
+    ? {
+        $or: [
+          { title: { $regex: searchQuery, $options: "i" } },
+          { location: { $regex: searchQuery, $options: "i" } },
+          { country: { $regex: searchQuery, $options: "i" } },
+          { description: { $regex: searchQuery, $options: "i" } },
+        ],
+      }
+    : {};
+
+  const allListings = await Listing.find(dbQuery);
   const siteUrl = getSiteUrl(req);
 
   const itemListJsonLd = `<script type="application/ld+json">
@@ -58,6 +70,7 @@ module.exports.index = async (req, res) => {
 
   res.render("listings/index", {
     allListings,
+    searchQuery,
     pageTitle: `Vacation Rentals & Holiday Homes | PrestigeStay — ${allListings.length} Stays`,
     pageDescription: `Browse ${allListings.length} unique vacation rentals on PrestigeStay. Beach houses, mountain retreats, castles, farm stays and more. Best prices guaranteed.`,
     // FIX: use one consistent brand and valid Unicode text in page metadata.
