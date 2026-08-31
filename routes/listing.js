@@ -3,11 +3,17 @@ const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync.js");
 const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
 const multer = require("multer");
+const ExpressError = require("../utils/ExpressError.js");
+const ALLOWED_IMAGE_MIME_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 10 * 1024 * 1024 },
   fileFilter: (req, file, callback) => {
-    callback(null, file.mimetype.startsWith("image/"));
+    // FIX: reject unsupported uploads with a user-visible error instead of silently ignoring them.
+    if (!ALLOWED_IMAGE_MIME_TYPES.has(file.mimetype)) {
+      return callback(new ExpressError(400, "Only JPG, PNG, WEBP, and GIF images are allowed."));
+    }
+    callback(null, true);
   },
 });
 

@@ -19,7 +19,11 @@ module.exports.createUser = async (req, res) => {
       res.redirect("/listings");
     });
   } catch (err) {
-    req.flash("error", err.message);
+    // FIX: show a clear message when the unique email constraint is violated.
+    req.flash(
+      "error",
+      err.code === 11000 ? "An account with this email already exists." : err.message,
+    );
     res.redirect("/signup");
   }
 };

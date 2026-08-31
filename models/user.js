@@ -7,6 +7,9 @@ const userSchema = new Schema({
     type: String,
     required: true,
     trim: true,
+    lowercase: true,
+    unique: true,
+    match: [/^\S+@\S+\.\S+$/, "Please provide a valid email address."], // FIX: validate and prevent duplicate email accounts.
   },
 });
 

@@ -1,81 +1,30 @@
-   <% layout("/layouts/boilerplate") -%>
-  
-<style>
-  #filters{
-    display: flex;
-    flex-wrap: wrap;
-  }
+<% layout("/layouts/boilerplate") -%>
 
-  .filter{
-    text-align: center;
-    margin-right: 2rem ;
-    margin-top: 2rem;
-    opacity: 0.7;
-  }
-  .filter:hover{
-    opacity: 1;
-    cursor: pointer;
-  }
-</style>
+<section class="mb-4">
+  <h1 class="section-heading h2">Find your next escape</h1>
+  <p class="section-subtitle">Handpicked stays for memorable journeys.</p>
+</section>
 
+<div id="filters" aria-label="Browse categories">
+  <div class="filter"><i class="fa-solid fa-fire"></i><p>Trending</p></div>
+  <div class="filter"><i class="fa-solid fa-bed"></i><p>Rooms</p></div>
+  <div class="filter"><i class="fa-solid fa-mountain-city"></i><p>Iconic cities</p></div>
+  <div class="filter"><i class="fa-solid fa-mountain"></i><p>Mountains</p></div>
+  <div class="filter"><i class="fa-brands fa-fort-awesome"></i><p>Castles</p></div>
+  <div class="filter"><i class="fa-solid fa-person-swimming"></i><p>Great pools</p></div>
+</div>
 
-    <div id="filters">
-      <div class="filter">
-       <div> <i class="fa-solid fa-fire"></i></div>
-        <p>Tranding </p>
-      </div>
-   
-     
-
-      <div class="filter">
-       <div> <i class="fa-solid fa-bed"></i></div>
-        <p>Rooms</p>
-      </div>
-   
-
-
-      <div class="filter">
-       <div> <i class="fa-solid fa-mountain-city"></i></div>
-        <p>Iconic Cities </p>
-      </div>
-    
-
-     
-      <div class="filter">
-       <div> <i class="fa-solid fa-mountain"></i></div>
-        <p>Mountains</p>
-      </div>
-    
-    
-      <div class="filter">
-       <div> <i class="fa-brands fa-fort-awesome"></i></div>
-        <p>Casteles </p>
-      </div>
-   
-
-    
-      <div class="filter">
-        <div><i class="fa-solid fa-person-swimming"></i></div>
-        <p>Amazing pools</p>
-      </div>
-
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+  <% for(let listing of allListings) { %>
+    <div class="col">
+      <a href="/listings/<%= listing._id %>" class="listing-link d-block h-100">
+        <article class="card listing-card">
+          <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
+          <div class="card-body">
+            <p class="card-text"><b><%= listing.title %></b><br>&#8377; <%= Number(listing.price || 0).toLocaleString("en-IN") %> / night</p>
+          </div>
+        </article>
+      </a>
     </div>
-
-
-
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
-      
-     <% for(let listing of allListings) { %>
-    <a href="/listings/<%= listing._id %>" class="listing-link">
-      <div class="card col listing-card ">  
-  <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>" style="height: 20rem;">
-  <div class="card-body">
-    <p class="card-text"> 
-     <b> <%= listing.title %> <br /></b>
-       &#8377; <%= Number(listing.price || 0).toLocaleString("en-IN") %> / night
-    </p>
-  </div>
-</div></a>
- <% } %>
-
-    </div>
+  <% } %>
+</div>

@@ -7,10 +7,13 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>WanderLust</title>
-    <meta name="description" content="" />
+    <!-- FIX: render the SEO data sent by each route instead of a hard-coded title. -->
+    <title><%= typeof pageTitle !== "undefined" ? pageTitle : "Wanderlust" %></title>
+    <meta name="description" content="<%= typeof pageDescription !== "undefined" ? pageDescription : "Discover memorable stays with Wanderlust." %>" />
+    <% if (typeof canonicalPath !== "undefined") { %><link rel="canonical" href="<%= siteUrl + canonicalPath %>" /><% } %>
+    <% if (typeof ogImage !== "undefined") { %><meta property="og:image" content="<%= ogImage %>" /><% } %>
+    <% if (typeof ogType !== "undefined") { %><meta property="og:type" content="<%= ogType %>" /><% } %>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/css/style.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -31,13 +34,17 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/css/rating.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <% if (typeof jsonLd !== "undefined") { %><%- jsonLd %><% } %>
   </head>
-  <body>
+  <body class="app-body">
     <!-- <h1>Wander Lust</h1> -->
     <%- include("../includes/navbar.ejs")%>
-    <div class="container">
+    <main class="site-main">
+    <div class="container page-shell">
       <%- include("../includes/flash.ejs")%> <%- body %>
     </div>
+    </main>
 
     <%- include("../includes/footer.ejs")%>
     <script
